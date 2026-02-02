@@ -20,6 +20,7 @@ namespace MvcCoreLinqToSql.Controllers
         {
             Enfermo enfermo = repo.FindEnfermo(inscripcion);
             return View(enfermo);
+
         }
 
         public async Task<IActionResult> Delete(string inscripcion)

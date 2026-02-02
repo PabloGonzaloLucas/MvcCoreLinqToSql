@@ -47,18 +47,24 @@ namespace MvcCoreLinqToSql.Repositories
             var consulta = from datos in tablaEnfermos.AsEnumerable()
                            where datos.Field<string>("INSCRIPCION") == inscripcion
                            select datos;
+            if (consulta.Count() == 0)
+            {
+                return null;
+            }
+            else
+            {
+                Enfermo enfermo = new Enfermo();
+                var row = consulta.First();
+                enfermo.Inscripcion = row.Field<string>("INSCRIPCION");
+                enfermo.NSS = row.Field<string>("NSS");
+                enfermo.FechaNacimiento = row.Field<DateTime>("FECHA_NAC");
+                enfermo.Apellido = row.Field<string>("APELLIDO");
+                enfermo.Direccion = row.Field<string>("DIRECCION");
+                enfermo.Sexo = row.Field<string>("S");
+                return enfermo;
+            }
 
-            Enfermo enfermo = new Enfermo();
-            var row = consulta.First();
-            enfermo.Inscripcion = row.Field<string>("INSCRIPCION");
-            enfermo.NSS = row.Field<string>("NSS");
-            enfermo.FechaNacimiento = row.Field<DateTime>("FECHA_NAC");
-            enfermo.Apellido = row.Field<string>("APELLIDO");
-            enfermo.Direccion = row.Field<string>("DIRECCION");
-            enfermo.Sexo = row.Field<string>("S");
 
-
-            return enfermo;
         }
 
         public async Task DeleteEnfermo(string inscripcion)
