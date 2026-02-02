@@ -1,0 +1,42 @@
+﻿@model List<Empleado>
+<form method="post">
+    <label>Oficio</label>
+    <input type="text" name="oficio"/>
+    <label>Salario</label>
+    <input type="text" name="salario"/>
+    <button>Buscar</button>
+</form>
+
+@if (ViewBag.mensaje != null)
+{
+    <h1 style="color:red">@ViewBag.mensaje</h1>
+}
+else
+{
+    @if(Model != null)
+    {
+        <table class="table table-striped">
+            <thead>
+                <th>Id</th>
+                <th>Apellido</th>
+                <th>Oficio</th>
+                <th>Salario</th>
+            </thead>
+            <tbody>
+                @foreach(Empleado empleado in Model)
+                {
+                    <tr>
+                        <td>@empleado.IdEmpleado</td>
+                        <td>@empleado.Apellido</td>
+                        <td>@empleado.Oficio</td>
+                        <td>@empleado.Salario</td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    }
+    
+}
+
+

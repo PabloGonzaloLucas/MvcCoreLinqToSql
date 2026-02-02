@@ -25,5 +25,22 @@ namespace MvcCoreLinqToSql.Controllers
                 this.repo.FindEmpleado(id);
             return View(empleado);
         }
+
+        public IActionResult BuscadorEmpleados()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult BuscadorEmpleados(string oficio, int salario)
+        {
+            List<Empleado> empleados = this.repo.GetEmpleadosOficioSalario(oficio, salario);
+            if (empleados == null)
+            {
+                ViewBag.mensaje = "No existen empleados con oficio" + oficio + " y salario mayor a " + salario;
+                return View();
+            }
+            return View(empleados);
+        }
     }
 }
